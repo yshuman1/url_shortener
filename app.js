@@ -9,9 +9,7 @@ var base58 = require('./base58.js');
 var Url = require('./models/url');
 
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://" +config.db.host +"/" + config.db.name, {useMongoClient: true});
-// mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
-
+mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name, {useMongoClient: true,/* other options */});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -29,6 +27,7 @@ app.post('/api/shorten', function (req, res) {
     long_url: longUrl
   }, function (err, doc) {
     if (doc) {
+      res.status(200);
       shortUrl = config.webhost + base58.encode(doc._id);
       res.send({
         'shortUrl': shortUrl
@@ -45,6 +44,7 @@ app.post('/api/shorten', function (req, res) {
 
         shortUrl = config.webhost + base58.encode(newUrl._id);
 
+        res.status(200);
         res.send({
           'shortUrl': shortUrl
         });
@@ -64,9 +64,9 @@ app.get('/:encoded_id', function(req, res){
 
     Url.findOne({_id: id}, function (err, doc){
       if (doc) {
-        res.status(301);
+        
         res.redirect(doc.long_url);
-        return;
+        console.log(doc.long_url);
       } else {
         res.redirect(config.webhost);
       }
@@ -74,6 +74,6 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-var server = app.listen(3000, function () {
-  console.log('Server listening on port 3000');
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log("Listening"); 
 });
