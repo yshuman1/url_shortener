@@ -65,6 +65,7 @@ app.get('/:encoded_id', function(req, res){
         
         res.redirect(doc.long_url);
         console.log(doc.long_url);
+        return;
       } else {
         res.redirect(config.webhost);
       }
