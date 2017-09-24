@@ -8,7 +8,9 @@ var base58 = require('./base58.js');
 
 var Url = require('./models/url');
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.Promise = Promise;
+mongoose.connect("mongodb://" +config.db.host +"/" + config.db.name, {useMongoClient: true});
+// mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -62,9 +64,8 @@ app.get('/:encoded_id', function(req, res){
 
     Url.findOne({_id: id}, function (err, doc){
       if (doc) {
-        
+        res.status(301);
         res.redirect(doc.long_url);
-        console.log(doc.long_url);
         return;
       } else {
         res.redirect(config.webhost);
