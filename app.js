@@ -9,7 +9,7 @@ var base58 = require('./base58.js');
 var Url = require('./models/url');
 
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI ||'mongodb://' + config.db.host + '/' + config.db.name, {useMongoClient: true,/* other options */});
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://localhost:27017/' + config.db.name, {useMongoClient: true,/* other options */});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
