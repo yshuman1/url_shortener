@@ -9,12 +9,14 @@ var base58 = require('./base58.js');
 var Url = require('./models/url');
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name, {useMongoClient: true,/* other options */});
+mongoose.connect(process.env.MONGODB_URI ||'mongodb://' + config.db.host + '/' + config.db.name, {useMongoClient: true,/* other options */});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+const port = process.env.PORT || 3000;
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
@@ -74,6 +76,6 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-var server = app.listen(3000, function () {
-  console.log('Server listening on port 3000');
+var server = app.listen(port, function () {
+  console.log(`started up on port ${port}`);
 });

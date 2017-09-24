@@ -4,7 +4,11 @@
   "description": "URL shortnening service built using node, express & mongoDB",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.4.0"
   },
   "author": "Yasin Shuman",
   "license": "MIT",
