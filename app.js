@@ -66,16 +66,8 @@ app.get('/:encoded_id', function(req, res){
 
     Url.findOne({_id: id}, function (err, doc){
       if (doc) {
-<<<<<<< HEAD
-        
-        res.redirect(301, doc.long_url);
-||||||| merged common ancestors
-        
-        res.redirect(doc.long_url);
-=======
        
         res.redirect(doc.long_url);
->>>>>>> hero
         console.log(doc.long_url);
       } else {
         res.redirect(config.webhost);
