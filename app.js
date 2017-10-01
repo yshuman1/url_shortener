@@ -65,7 +65,7 @@ app.get('/:encoded_id', function(req, res){
     Url.findOne({_id: id}, function (err, doc){
       if (doc) {
         
-        res.redirect(doc.long_url);
+        res.redirect(301, doc.long_url);
         console.log(doc.long_url);
       } else {
         res.redirect(config.webhost);
