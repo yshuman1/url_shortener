@@ -9,12 +9,14 @@ var base58 = require('./base58.js');
 var Url = require('./models/url');
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name, {useMongoClient: true,/* other options */});
+mongoose.connect(process.env.MONGODB_URI);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+const port = process.env.PORT;
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
@@ -64,8 +66,16 @@ app.get('/:encoded_id', function(req, res){
 
     Url.findOne({_id: id}, function (err, doc){
       if (doc) {
+<<<<<<< HEAD
         
         res.redirect(301, doc.long_url);
+||||||| merged common ancestors
+        
+        res.redirect(doc.long_url);
+=======
+       
+        res.redirect(doc.long_url);
+>>>>>>> hero
         console.log(doc.long_url);
       } else {
         res.redirect(config.webhost);
@@ -74,6 +84,6 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-var server = app.listen(3000, function () {
-  console.log('Server listening on port 3000');
+var server = app.listen(port, function () {
+  console.log(`started up on port ${port}`);
 });

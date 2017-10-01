@@ -2,7 +2,7 @@ var config = {};
 
 config.db = {};
 
-config.webhost = 'http://localhost:3000/';
+config.webhost = 'https://stark-reaches-83568.herokuapp.com/';
 
 
 config.db.host = 'localhost';
